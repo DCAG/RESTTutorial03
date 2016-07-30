@@ -1,4 +1,4 @@
-﻿Set-Location "$env:USERPROFILE\Documents\GitHub\RESTTutorial03\src"
+﻿Set-Location "E:\Learning\PHPSlim\RESTTutorial03\src"
 
 start-job {
     Start-Sleep -Seconds 1

@@ -51,6 +51,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
     $response->getBody()->write("Hello, $name");
     $this->logger->addWarning("Something interesting has happened");
+
     print_r($this->db->test->products->find()); // get the database named "foo"
     //var_dump($this->db);
     $collection = $this->db->demo->beers;
@@ -59,6 +60,39 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 
     echo "Inserted with Object ID '{$result->getInsertedId()}'";
 
+    $response->getBody()->write("<br />Hello");
+    return $response;
+});
+
+$app->get('/yolo/{yolo}', function (Request $request, Response $response) {
+    $name = $request->getAttribute('yolo');
+    $response->getBody()->write("Yolo, $name");
+    $this->logger->addWarning("Something interesting has happened");
+
+    /** @var MongoDB\Client $mongo */
+    $mongo = $this->db;
+
+    //print_r($this->db->test->products->find()); // get the database named "foo"
+    var_dump($mongo->);
+    $collection = $this->db->demo->beers;
+
+    $result = $collection->find( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
+
+    //print_r($result);
+    echo "<br />";
+    echo "<br />";
+    var_dump($result);
+    foreach ($result as $entry) {
+        $response->getBody()->write("<br />".$entry['name'].":".$entry['brewery']);
+    }
+/*
+    echo "".$this->db->isPrimary();
+    echo "".$this->db->isSecondary();
+    echo "".$this->db->isHidden();
+    echo "".$this->db->isArbiter();
+    echo "".$this->db->getPort();
+    echo "".$this->db->isPassive();
+*/
     $response->getBody()->write("<br />Hello");
     return $response;
 });
