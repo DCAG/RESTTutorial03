@@ -1,3 +1,4 @@
 ./src/vendor
 ./src/vendor/
 ./src/vendor/**
+./\.idea/workspace.xml
