@@ -44,15 +44,21 @@ $container['logger'] = function($c){
 };
 
 $container['db'] = function($c){
-  return new \MongoDB\Driver\Manager("mongodb://localhost:27017"); // connect
+  return new MongoDB\Client("mongodb://localhost:27017"); // connect
 };
 
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
     $response->getBody()->write("Hello, $name");
     $this->logger->addWarning("Something interesting has happened");
-    //$this->db->foo; // get the database named "foo"
-    var_dump($this->db);
+    print_r($this->db->test->products->find()); // get the database named "foo"
+    //var_dump($this->db);
+    $collection = $this->db->demo->beers;
+
+    $result = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
+
+    echo "Inserted with Object ID '{$result->getInsertedId()}'";
+
     $response->getBody()->write("<br />Hello");
     return $response;
 });
